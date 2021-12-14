@@ -17,6 +17,7 @@
 #ifndef IGNITION_GAZEBO_DETAIL_VIEW_HH_
 #define IGNITION_GAZEBO_DETAIL_VIEW_HH_
 
+#include <memory>
 #include <tuple>
 #include <unordered_map>
 #include <unordered_set>

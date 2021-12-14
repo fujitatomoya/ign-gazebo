@@ -22,6 +22,8 @@
 #include "ignition/gazebo/Export.hh"
 #include "ignition/gazebo/Types.hh"
 
+#include <vector>
+
 namespace ignition
 {
   namespace gazebo

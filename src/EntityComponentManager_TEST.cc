@@ -3173,7 +3173,7 @@ TEST_P(EntityComponentManagerFixture, ComputDiff)
     EXPECT_EQ(0u, diff.RemovedEntities().size());
   }
 
-  // Now add another component to managerCopy. We should expect one more entity 
+  // Now add another component to managerCopy. We should expect one more entity
   // in RemovedEntities
   managerCopy.SetEntityCreateOffset(10);
   managerCopy.CreateEntity();

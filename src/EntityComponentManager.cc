@@ -311,12 +311,12 @@ void EntityComponentManagerPrivate::Copy(
   this->descendantCache.clear();
   this->entityCount = _from.entityCount;
   this->removedComponents = _from.removedComponents;
-  this->componentsMarkedAsRemoved= _from.componentsMarkedAsRemoved;
+  this->componentsMarkedAsRemoved = _from.componentsMarkedAsRemoved;
 
   for (const auto &[entity, comps] : _from.componentStorage)
   {
     this->componentStorage[entity].clear();
-    for (const auto &comp: comps)
+    for (const auto &comp : comps)
     {
       this->componentStorage[entity].emplace_back(comp->Clone());
     }
@@ -325,8 +325,8 @@ void EntityComponentManagerPrivate::Copy(
   this->componentTypeIndexIterators.clear();
   this->componentTypeIndexDirty = true;
 
-  // Not copying maps related to cloning since they are transient variables that 
-  // are used as return values of some member functions.
+  // Not copying maps related to cloning since they are transient variables
+  // that are used as return values of some member functions.
 
   this->pinnedEntities = _from.pinnedEntities;
 }
@@ -2185,8 +2185,9 @@ void EntityComponentManager::ApplyDiff(const EntityComponentManager &_other,
     {
       this->dataPtr->CreateEntityImplementation(entity);
       this->RequestRemoveEntity(entity, false);
-      // We want to set this entity as "removed", but CreateEntityImplementation 
-      // set's is as "newlyCreated", so remove it from that list.
+      // We want to set this entity as "removed", but 
+      // CreateEntityImplementation sets it as "newlyCreated", 
+      // so remove it from that list.
       {
         std::lock_guard<std::mutex> lock(this->dataPtr->entityCreatedMutex);
         this->dataPtr->newlyCreatedEntities.erase(entity);

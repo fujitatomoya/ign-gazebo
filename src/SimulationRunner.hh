@@ -520,8 +520,8 @@ namespace ignition
       /// \brief Manager of all components.
       private: EntityComponentManager entityCompMgr;
 
-      /// \brief Copy of the EntityComponentManager immediately after the 
-      /// initial entity creation/world load. 
+      /// \brief Copy of the EntityComponentManager immediately after the
+      /// initial entity creation/world load.
       private: EntityComponentManager initialEntityCompMgr;
 
       /// \brief Manager of all levels.
