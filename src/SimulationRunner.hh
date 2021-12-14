@@ -107,7 +107,8 @@ namespace ignition
                 configure(systemPlugin->QueryInterface<ISystemConfigure>()),
                 preupdate(systemPlugin->QueryInterface<ISystemPreUpdate>()),
                 update(systemPlugin->QueryInterface<ISystemUpdate>()),
-                postupdate(systemPlugin->QueryInterface<ISystemPostUpdate>())
+                postupdate(systemPlugin->QueryInterface<ISystemPostUpdate>()),
+                reset(systemPlugin->QueryInterface<ISystemReset>())
       {
       }
 
@@ -119,7 +120,8 @@ namespace ignition
                 configure(dynamic_cast<ISystemConfigure *>(_system.get())),
                 preupdate(dynamic_cast<ISystemPreUpdate *>(_system.get())),
                 update(dynamic_cast<ISystemUpdate *>(_system.get())),
-                postupdate(dynamic_cast<ISystemPostUpdate *>(_system.get()))
+                postupdate(dynamic_cast<ISystemPostUpdate *>(_system.get())),
+                reset(dynamic_cast<ISystemReset *>(_system.get()))
       {
       }
 
@@ -150,6 +152,8 @@ namespace ignition
       /// \brief Access this system via the ISystemPostUpdate interface
       /// Will be nullptr if the System doesn't implement this interface.
       public: ISystemPostUpdate *postupdate = nullptr;
+
+      public: ISystemReset *reset = nullptr;
 
       /// \brief Vector of queries and callbacks
       public: std::vector<EntityQueryCallback> updates;
@@ -498,6 +502,9 @@ namespace ignition
       /// \brief Systems implementing Configure
       private: std::vector<ISystemConfigure *> systemsConfigure;
 
+      /// \brief Systems implementing Reset
+      private: std::vector<ISystemReset *> systemsReset;
+
       /// \brief Systems implementing PreUpdate
       private: std::vector<ISystemPreUpdate *> systemsPreupdate;
 
@@ -512,6 +519,10 @@ namespace ignition
 
       /// \brief Manager of all components.
       private: EntityComponentManager entityCompMgr;
+
+      /// \brief Copy of the EntityComponentManager immediately after the 
+      /// initial entity creation/world load. 
+      private: EntityComponentManager initialEntityCompMgr;
 
       /// \brief Manager of all levels.
       private: std::unique_ptr<LevelManager> levelMgr;
@@ -647,6 +658,7 @@ namespace ignition
       /// at the appropriate time.
       private: std::unique_ptr<msgs::WorldControlState> newWorldControlState;
 
+      private: bool resetInitiated{false};
       friend class LevelManager;
     };
     }
